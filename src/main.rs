@@ -17,21 +17,14 @@ struct TotalVariousCounts {
     total_byte_count: usize,
 }
 
-// this function is for opening the file and reading it's contents and then returning it.
 fn reading_file(arg: &str) -> BufReader<File> {
-    // opening the file at given path
     let file = File::open(arg).expect("failed to open file");
-
-    // reading file with bufreader.
     let reader = BufReader::new(file);
-
-    // returning the reader.
     reader
 }
 
-// this fuvntion is for getting various data from each line and calculating and counting of it.
+
 fn getting_data<R: BufRead>(reader: R, counts: &mut VariousCounts) {
-    // running for loop on each line and getting results.
     for line in reader.lines() {
         match line {
             Ok(l) => {
@@ -48,28 +41,27 @@ fn getting_data<R: BufRead>(reader: R, counts: &mut VariousCounts) {
     }
 }
 
-// this function is for displaying info to user, based on flags provided and it no flag is provided then assiting user to give into about flags.
+
 fn displaying_count_info(arg_one: &str, counts: &mut VariousCounts) {
-    // displaying info based on flag provided with if and else if and if not valid provided then else condition ran and give info to user to provide valid flag.
     if arg_one == "-l" {
-        println!("Lines : {}", counts.line_count);
+        println!("{:<15} {}", "Lines", counts.line_count);
     } else if arg_one == "-w" {
-        println!("Words : {}", counts.word_count);
+        println!("{:<15} {}", "Words", counts.word_count);
     } else if arg_one == "-c" {
-        println!("Characters : {}", counts.character_count);
+        println!("{:<15} {}", "Characters", counts.character_count);
     } else if arg_one == "-b" {
-        println!("Bytes : {}", counts.byte_count);
+        println!("{:<15} {}", "Bytes", counts.byte_count);
     } else if arg_one == "-a" {
-        println!("Lines : {}", counts.line_count);
-        println!("Words : {}", counts.word_count);
-        println!("Characters : {}", counts.character_count);
-        println!("Bytes : {}", counts.byte_count);
+        println!("{:<15} {}", "Lines", counts.line_count);
+        println!("{:<15} {}", "Words", counts.word_count);
+        println!("{:<15} {}", "Characters", counts.character_count);
+        println!("{:<15} {}", "Bytes", counts.byte_count);
     }
 
-    println!("\n----------------------");
+    println!("\n----------------------------");
 }
 
-// we add counts of each item of each file at the end of loop to total count of that item.
+
 fn total_count_final(total_counts: &mut TotalVariousCounts, counts: &mut VariousCounts) {
     total_counts.total_line_count += counts.line_count;
     total_counts.total_character_count += counts.character_count;
@@ -77,28 +69,27 @@ fn total_count_final(total_counts: &mut TotalVariousCounts, counts: &mut Various
     total_counts.total_byte_count += counts.byte_count;
 }
 
-// this function is for displaying total info at the end to user, based on flags provided.
 fn displaying_total_count_info(args: &Vec<String>, total_counts: &mut TotalVariousCounts) {
-    println!("\n----------------------");
-    println!("Total files : {}", args.len() - 2);
-    println!("----------------------\n");
+    println!("\n----------------------------");
+    println!("{} {:10}", "Total files", args.len() - 2);
+    println!("----------------------------\n");
 
     if args[1] == "-l" {
-        println!("Total lines : {}", total_counts.total_line_count);
+        println!("{:<20} {}", "Total lines", total_counts.total_line_count);
     } else if args[1] == "-w" {
-        println!("Total words : {}", total_counts.total_word_count);
+        println!("{:<20} {}", "Total words", total_counts.total_word_count);
     } else if args[1] == "-c" {
-        println!("Total characters : {}", total_counts.total_character_count);
+        println!("{:<20} {}", "Total characters", total_counts.total_character_count);
     } else if args[1] == "-b" {
-        println!("Total bytes : {}", total_counts.total_byte_count);
+        println!("{:<20} {}", "Total bytes", total_counts.total_byte_count);
     } else if args[1] == "-a" {
-        println!("Total lines : {}", total_counts.total_line_count);
-        println!("Total words : {}", total_counts.total_word_count);
-        println!("Total characters : {}", total_counts.total_character_count);
-        println!("Total bytes : {}", total_counts.total_byte_count);
+        println!("{:<20} {}", "Total lines", total_counts.total_line_count);
+        println!("{:<20} {}", "Total lines", total_counts.total_word_count);
+        println!("{:<20} {}", "Total characters", total_counts.total_character_count);
+        println!("{:<20} {}", "Total bytes", total_counts.total_byte_count);
     }
 
-    println!("\n----------------------");
+    println!("\n----------------------------");
 }
 
 fn main() {
@@ -116,10 +107,7 @@ fn main() {
     if arguments.len() == 1 {
         println!("\n---------------------------------------------");
         println!(
-            "Welcome to 'rwc' the tool that gives you counts of lines, words, character and bytes of any text file/files\n"
-        );
-        println!(
-            "please provide input or file path with valid flag, use '-- -help' to know more about flags"
+            "Welcome to 'rwc' the tool that gives you counts of lines, words, character and bytes of any text file/files\nplease provide input or file path with valid flag, use '-- -help' to know more about flags"
         );
         println!("-----------------------------------------------\n");
 
@@ -160,9 +148,9 @@ fn main() {
 
                     getting_data(reader, &mut counts);
 
-                    println!("\n----------------------");
+                    println!("\n----------------------------");
                     println!("From input data: ");
-                    println!("----------------------\n");
+                    println!("----------------------------\n");
 
                     displaying_count_info(&arguments[1], &mut counts);
                 }
@@ -192,9 +180,9 @@ fn main() {
             // for loop to run over multiple file, if provided.
             for i in 2..arguments.len() {
                 // displaying file number as initial info.
-                println!("\n----------------------");
-                println!("File no. : {}", i - 1);
-                println!("----------------------\n");
+                println!("\n----------------------------");
+                println!("File no.  {:7}", i - 1);
+                println!("----------------------------\n");
 
                 // calling reading_file function to open and read file.
                 let reader = reading_file(&arguments[i]);
