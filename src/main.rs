@@ -1,6 +1,7 @@
 use std::env::args;
 use std::fs::File;
 use std::io::{BufRead, BufReader, stdin};
+use std::path::Path;
 use std::process::exit;
 
 struct VariousCounts {
@@ -179,11 +180,24 @@ fn main() {
         } else {
             // for loop to run over multiple file, if provided.
             for i in 2..arguments.len() {
-                // displaying file number as initial info.
-                println!("\n----------------------------");
-                println!("File no.  {:7}", i - 1);
-                println!("----------------------------\n");
+                
+                let file_path = Path::new(&arguments[i]);
+                let file_name = file_path.file_name();
 
+                match file_name {
+                    Some(f) => {
+                        println!("\n----------------------------");
+                        println!("{:<10} {:?}", "File.", f.to_string_lossy());
+                        println!("----------------------------\n");
+                    },
+                    None => {
+                        println!("\n----------------------------");
+                        println!("{:<4} {:?}", "File No.", &arguments[i]);
+                        println!("----------------------------\n");
+                    }
+                };
+
+                
                 // calling reading_file function to open and read file.
                 let reader = reading_file(&arguments[i]);
 
