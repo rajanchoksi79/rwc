@@ -1,43 +1,62 @@
-use std::path::Path;
-use crate::reader::reading_file;
-use crate::{TotalVariousCounts, VariousCounts};
-use crate::total_counter::total_count_final;
-use crate::counter::{getting_data, displaying_count_info};
+use std::process::exit;
+use crate::{TotalVariousCounts};
+use crate::total_counter::displaying_total_count_info;
+use crate::reader::{input_reading, multiple_file_reading};
 
+pub fn arg_parsing(arguments:&Vec<String>) {
+    let mut total_counts = TotalVariousCounts {
+        total_line_count: 0,
+        total_word_count: 0,
+        total_character_count: 0,
+        total_byte_count: 0,
+    };
+    
+    if arguments.len() == 1 {
+        println!("\n---------------------------------------------");
+        println!(
+            "Welcome to 'rwc' the tool that gives you counts of lines, words, character and bytes of any text file/files\nplease provide input or file path with valid flag, use '-- -help' to know more about flags"
+        );
+        println!("-----------------------------------------------\n");
 
-pub fn multiple_file_reading(arguments: &Vec<String>, total_counts: &mut TotalVariousCounts) {
-    for i in 2..arguments.len() {
-        let file_path = Path::new(&arguments[i]);
-        let file_name = file_path.file_name();
-
-        match file_name {
-            Some(f) => {
-                println!("\n----------------------------");
-                println!("{:<7} {}", "File", f.to_string_lossy());
-                println!("----------------------------\n");
-            }
-            None => {
-                println!("\n----------------------------");
-                println!("{:<4} {}", "File No", &arguments[i]);
-                println!("----------------------------\n");
-            }
-        };
-
-        // calling reading_file function to open and read file.
-        let reader = reading_file(&arguments[i]);
-
-        // instance of struct variouscounts for storing counts of individual file for each file.
-        let mut counts = VariousCounts {
-            line_count: 0,
-            word_count: 0,
-            character_count: 0,
-            byte_count: 0,
-        };
-
-        getting_data(reader, &mut counts);
-
-        displaying_count_info(&arguments[1], &mut counts);
-
-        total_count_final(total_counts, &mut counts);
+        exit(1);
+    } else if arguments.len() == 2 {
+        if arguments[1] == "-help" {
+            println!("'-- -w' : for word count");
+            println!("'-- -l' : for line count");
+            println!("'-- -c' : for character count");
+            println!("'-- -b' : for bytes count");
+            println!("'-- -a' : for counts of all the data");
+        } else if arguments[1] != "-l"
+            && arguments[1] != "-w"
+            && arguments[1] != "-c"
+            && arguments[1] != "-b"
+            && arguments[1] != "-a"
+        {
+            println!("please provide valid flag, use '-- -help' to know more");
+        } else {
+            input_reading(&arguments[1]);            
+        }
+    }
+    // with three arguments provided, we run our program
+    else {
+        if arguments[1] == "-help" {
+            println!("'-- -w' : for word count");
+            println!("'-- -l' : for line count");
+            println!("'-- -c' : for character count");
+            println!("'-- -b' : for bytes count");
+            println!("'-- -a' : for counts of all the data");
+        } else if arguments[1] != "-l"
+            && arguments[1] != "-w"
+            && arguments[1] != "-c"
+            && arguments[1] != "-b"
+            && arguments[1] != "-a"
+        {
+            println!("please provide valid flag, use '-- -help' to know more");
+        } else {
+            // for loop to run over multiple file, if provided.
+            multiple_file_reading(&arguments, &mut total_counts);
+            displaying_total_count_info(&arguments, &mut total_counts);
+        }
     }
 }
+
