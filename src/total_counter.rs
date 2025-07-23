@@ -13,15 +13,15 @@ pub fn displaying_total_count_info(args: &Vec<String>, total_counts: &mut TotalV
     println!("{} {:10}", "Total files", args.len() - 2);
     println!("----------------------------\n");
 
-    if args[1] == "-l" {
+    if args[1] == "-l" || args[1] == "--lines" {
         println!("{:<20} {}", "Total lines", total_counts.total_line_count);
-    } else if args[1] == "-w" {
+    } else if args[1] == "-w" || args[1] == "--words" {
         println!("{:<20} {}", "Total words", total_counts.total_word_count);
-    } else if args[1] == "-c" {
+    } else if args[1] == "-c" || args[1] == "--characters" {
         println!("{:<20} {}", "Total characters", total_counts.total_character_count);
-    } else if args[1] == "-b" {
+    } else if args[1] == "-b" || args[1] == "--bytes" {
         println!("{:<20} {}", "Total bytes", total_counts.total_byte_count);
-    } else if args[1] == "-a" {
+    } else if args[1] == "-a" || args[1] == "--all" {
         println!("{:<20} {}", "Total lines", total_counts.total_line_count);
         println!("{:<20} {}", "Total lines", total_counts.total_word_count);
         println!("{:<20} {}", "Total characters", total_counts.total_character_count);

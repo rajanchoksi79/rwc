@@ -20,7 +20,7 @@ pub fn input_reading(arg_one: &str) {
 
     match reader.fill_buf() {
         Ok(buf) if buf.is_empty() => {
-            eprintln!("no input provided, please provide file path or pass input data via pipe");
+            eprintln!("no input provided, please provide file path or pass input data via pipe or from terminal");
             exit(1);
         }
         Ok(_) => {
@@ -77,9 +77,7 @@ pub fn multiple_file_reading(arguments: &Vec<String>, total_counts: &mut TotalVa
         };
 
         getting_data(reader, &mut counts);
-
         displaying_count_info(&arguments[1], &mut counts);
-
         total_count_final(total_counts, &mut counts);
     }
 }

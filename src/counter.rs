@@ -21,15 +21,15 @@ pub fn getting_data<R: BufRead>(reader: R, counts: &mut VariousCounts) {
 
 
 pub fn displaying_count_info(arg_one: &str, counts: &mut VariousCounts) {
-    if arg_one == "-l" {
+    if arg_one == "-l" || arg_one == "--lines" {
         println!("{:<15} {}", "Lines", counts.line_count);
-    } else if arg_one == "-w" {
+    } else if arg_one == "-w" || arg_one == "--words" {
         println!("{:<15} {}", "Words", counts.word_count);
-    } else if arg_one == "-c" {
+    } else if arg_one == "-c" || arg_one == "--characters" {
         println!("{:<15} {}", "Characters", counts.character_count);
-    } else if arg_one == "-b" {
+    } else if arg_one == "-b" || arg_one == "--bytes" {
         println!("{:<15} {}", "Bytes", counts.byte_count);
-    } else if arg_one == "-a" {
+    } else if arg_one == "-a" || arg_one == "--all" {
         println!("{:<15} {}", "Lines", counts.line_count);
         println!("{:<15} {}", "Words", counts.word_count);
         println!("{:<15} {}", "Characters", counts.character_count);
