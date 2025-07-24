@@ -23,7 +23,7 @@ pub fn displaying_total_count_info(args: &Vec<String>, total_counts: &mut TotalV
         println!("{:<20} {}", "Total bytes", total_counts.total_byte_count);
     } else if args[1] == "-a" || args[1] == "--all" {
         println!("{:<20} {}", "Total lines", total_counts.total_line_count);
-        println!("{:<20} {}", "Total lines", total_counts.total_word_count);
+        println!("{:<20} {}", "Total words", total_counts.total_word_count);
         println!("{:<20} {}", "Total characters", total_counts.total_character_count);
         println!("{:<20} {}", "Total bytes", total_counts.total_byte_count);
     }

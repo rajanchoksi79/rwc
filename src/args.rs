@@ -19,38 +19,42 @@ pub fn arg_parsing(arguments:&Vec<String>) {
         println!("-----------------------------------------------\n");
         exit(1);
     } else if arguments.len() == 2 {
-        if arguments[1] == "-help" {
-            println!("'-w' or '--words' : for word count");
-            println!("'-l' or '--lines' : for line count");
-            println!("'-c' or '--characters' : for character count");
-            println!("'-b' or '--bytes' : for bytes count");
-            println!("'-a' or '--all' : for counts of all the data");
-        } else if (arguments[1] != "-l" || arguments[1] != "--lines")
-            && (arguments[1] != "-w" || arguments[1] != "--words") 
-            && (arguments[1] != "-c" || arguments[1] != "--characters")
-            && (arguments[1] != "-b" || arguments[1] != "--bytes")
-            && (arguments[1] != "-a" || arguments[1] != "--all")
+        if arguments[1] == "-h" || arguments[1] == "--help" {
+            println!("\n--------------------------------------\n");
+            println!("{:<25} {}", "'-w' or '--words'", "for word count");
+            println!("{:<25} {}", "'-l' or '--lines'", "for line count");
+            println!("{:<25} {}", "'-c' or '--characters'", "for character count");
+            println!("{:<25} {}", "'-b' or '--bytes'", "for bytes count");
+            println!("{:<25} {}","'-a' or '--all'", "for counts of all the data");
+            println!("\n--------------------------------------");
+        } else if (arguments[1] != "-l" && arguments[1] != "--lines")
+            && (arguments[1] != "-w" && arguments[1] != "--words") 
+            && (arguments[1] != "-c" && arguments[1] != "--characters")
+            && (arguments[1] != "-b" && arguments[1] != "--bytes")
+            && (arguments[1] != "-a" && arguments[1] != "--all")
         {
-            println!("please provide valid flag, use '-help' to know more");
+            println!("please provide valid flag, use '--help' to know more");
         } else {
             input_reading(&arguments[1]);            
         }
     }
     // with three arguments provided, we run our program
     else {
-        if arguments[1] == "-help" {
-            println!("'-w' or '--words' : for word count");
-            println!("'-l' or '--lines' : for line count");
-            println!("'-c' or '--characters' : for character count");
-            println!("'-b' or '--bytes' : for bytes count");
-            println!("'-a' or '--all' : for counts of all the data");
-        } else if (arguments[1] != "-l" || arguments[1] != "--lines")
-            && (arguments[1] != "-w" || arguments[1] != "--words") 
-            && (arguments[1] != "-c" || arguments[1] != "--characters")
-            && (arguments[1] != "-b" || arguments[1] != "--bytes")
-            && (arguments[1] != "-a" || arguments[1] != "--all")
+        if arguments[1] == "-h" || arguments[1] == "--help" {
+            println!("\n-------------------------------------\n");
+            println!("{:<25} {}", "'-w' or '--words'", "for word count");
+            println!("{:<25} {}", "'-l' or '--lines'", "for line count");
+            println!("{:<25} {}", "'-c' or '--characters'", "for character count");
+            println!("{:<25} {}", "'-b' or '--bytes'", "for bytes count");
+            println!("{:<25} {}","'-a' or '--all'", "for counts of all the data");
+            println!("\n-------------------------------------");
+        } else if (arguments[1] != "-l" && arguments[1] != "--lines")
+            && (arguments[1] != "-w" && arguments[1] != "--words") 
+            && (arguments[1] != "-c" && arguments[1] != "--characters")
+            && (arguments[1] != "-b" && arguments[1] != "--bytes")
+            && (arguments[1] != "-a" && arguments[1] != "--all")
         {
-            println!("please provide valid flag, use '-help' to know more");
+            println!("please provide valid flag, use '--help' to know more");
         } else {
             // for loop to run over multiple file, if provided.
             multiple_file_reading(&arguments, &mut total_counts);
@@ -58,4 +62,3 @@ pub fn arg_parsing(arguments:&Vec<String>) {
         }
     }
 }
-
